@@ -13,12 +13,14 @@ class Scraper:
         html = r.read()
         parser = "html.parser"
         sp = BeautifulSoup(html,parser)
-        for tag in sp.find_all("a"):
-            url = tag.get('href')
-            if url is None:
-                continue
-            if "html" in url:
-                print('\n' + url)
+        with open('parsed_links.txt','w') as f:
 
-news = "https://news.google.ru"
+            for tag in sp.find_all("a"):
+                url = tag.get('href')
+                if url is None:
+                    continue
+                else:
+                    f.write(url+'\n')
+
+news = "https://news.google.com"
 Scraper(news).scrape()
